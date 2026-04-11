@@ -5,8 +5,8 @@ from groq import Groq
 from database import get_conn
 from auth_utils import get_current_user
 import json, re
-
-GROQ_API_KEY = "your-groq-key-here"
+import os
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 client = Groq(api_key=GROQ_API_KEY)
 MODEL  = "llama-3.1-8b-instant"
 
