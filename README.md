@@ -1,4 +1,4 @@
-# 💸 Spendly — Personal Finance Dashboard
+#  Spendly — Personal Finance Dashboard
 
 Track your money, own your future. A full-stack personal finance web app built with **React + FastAPI (Python)**.
 
