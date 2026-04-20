@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { TrendingUp, TrendingDown, PiggyBank, Receipt } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { MetricCard, Card, SectionHeader, ProgressBar, fmtINR, CAT_COLORS, Empty, Spinner } from '../components/UI';
 import API from '../utils/api';
@@ -56,11 +57,11 @@ export default function Overview() {
 
       {/* Metric cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14 }}>
-        <MetricCard delay={1} label="Income"       value={fmtINR(stats?.income   || 0)} icon="💵" sub="This month" />
-        <MetricCard delay={2} label="Expenses"     value={fmtINR(stats?.expense  || 0)} icon="💸" sub="This month" />
-        <MetricCard delay={3} label="Savings"      value={fmtINR(stats?.savings  || 0)} icon="💰"
+        <MetricCard delay={1} label="Income"       value={fmtINR(stats?.income  || 0)} icon={<TrendingUp size={18} color="var(--green)" />}  sub="This month" />
+        <MetricCard delay={2} label="Expenses"     value={fmtINR(stats?.expense || 0)} icon={<TrendingDown size={18} color="var(--red)" />}   sub="This month" />
+        <MetricCard delay={3} label="Savings"      value={fmtINR(stats?.savings || 0)} icon={<PiggyBank size={18} color="var(--accent)" />}
           sub={`${stats?.rate || 0}% savings rate`} subColor={stats?.rate >= 20 ? 'var(--green)' : 'var(--amber)'} />
-        <MetricCard delay={4} label="Transactions" value={stats?.tx_count || 0}          icon="🧾" sub="Expenses logged" />
+        <MetricCard delay={4} label="Transactions" value={stats?.tx_count || 0}        icon={<Receipt size={18} color="var(--text2)" />}      sub="Expenses logged" />
       </div>
 
       {/* Charts row */}
