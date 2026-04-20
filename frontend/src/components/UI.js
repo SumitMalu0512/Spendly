@@ -1,4 +1,5 @@
 import { BarChart2, PieChart, Target, CreditCard } from 'lucide-react';
+
 // Card
 export function Card({ children, style = {}, className = '' }) {
   return (
@@ -19,7 +20,7 @@ export function MetricCard({ label, value, sub, subColor, icon, delay = 0 }) {
     <Card className={`delay-${delay}`} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ fontSize: 12, color: 'var(--text2)', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{label}</span>
-        {icon && <span style={{ fontSize: 18 }}>{icon}</span>}
+        {icon && <span style={{ fontSize: 18, display: 'flex', alignItems: 'center' }}>{icon}</span>}
       </div>
       <div style={{ fontSize: 26, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.5px', animation: 'countUp 0.4s ease both' }}>
         {value}
@@ -96,7 +97,9 @@ export function ProgressBar({ value, max, color }) {
 export function Empty({ message = 'No data yet', icon }) {
   return (
     <div style={{ textAlign: 'center', padding: '48px 24px', color: 'var(--text2)' }}>
-      <div style={{ marginBottom: 12, display: 'flex', justifyContent: 'center', opacity: 0.4 }}>{icon}</div>
+      <div style={{ marginBottom: 12, display: 'flex', justifyContent: 'center', opacity: 0.4 }}>
+        {icon || <BarChart2 size={36} />}
+      </div>
       <div style={{ fontSize: 14 }}>{message}</div>
     </div>
   );
