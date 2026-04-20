@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { TrendingUp, TrendingDown, PiggyBank, Receipt } from 'lucide-react';
+import { TrendingUp, TrendingDown, PiggyBank, Receipt, BarChart2, Target, CreditCard } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { MetricCard, Card, SectionHeader, ProgressBar, fmtINR, CAT_COLORS, Empty, Spinner } from '../components/UI';
 import API from '../utils/api';
@@ -49,13 +49,11 @@ export default function Overview() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-      {/* Header */}
       <div className="animate-fadeUp">
         <h1 style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.3px' }}>{greeting}, {user?.name?.split(' ')[0]} 👋</h1>
         <p style={{ color: 'var(--text2)', fontSize: 14, marginTop: 4 }}>Here's your financial snapshot</p>
       </div>
 
-      {/* Metric cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14 }}>
         <MetricCard delay={1} label="Income"       value={fmtINR(stats?.income  || 0)} icon={<TrendingUp size={18} color="var(--green)" />}  sub="This month" />
         <MetricCard delay={2} label="Expenses"     value={fmtINR(stats?.expense || 0)} icon={<TrendingDown size={18} color="var(--red)" />}   sub="This month" />
@@ -64,12 +62,10 @@ export default function Overview() {
         <MetricCard delay={4} label="Transactions" value={stats?.tx_count || 0}        icon={<Receipt size={18} color="var(--text2)" />}      sub="Expenses logged" />
       </div>
 
-      {/* Charts row */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 14 }}>
-        {/* Income vs Expenses */}
         <Card className="delay-2">
           <SectionHeader title="Income vs Expenses" />
-          {monthly.length === 0 ? <Empty icon="📊" message="Add transactions to see trends" /> : (
+          {monthly.length === 0 ? <Empty icon={<BarChart2 size={36} />} message="Add transactions to see trends" /> : (
             <ResponsiveContainer width="100%" height={220}>
               <BarChart data={monthly} barGap={4}>
                 <XAxis dataKey="month" tick={{ fontSize: 11, fill: 'var(--text2)' }} axisLine={false} tickLine={false} />
@@ -82,10 +78,9 @@ export default function Overview() {
           )}
         </Card>
 
-        {/* Spending by category */}
         <Card className="delay-3">
           <SectionHeader title="Spending by Category" />
-          {cats.length === 0 ? <Empty icon="🍕" message="No expense data yet" /> : (
+          {cats.length === 0 ? <Empty icon={<PieChart size={36} />} message="No expense data yet" /> : (
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
               <ResponsiveContainer width={160} height={160}>
                 <PieChart>
@@ -109,7 +104,6 @@ export default function Overview() {
         </Card>
       </div>
 
-      {/* Savings rate trend */}
       {monthly.length > 1 && (
         <Card className="delay-3">
           <SectionHeader title="Savings Rate Trend" />
@@ -130,12 +124,10 @@ export default function Overview() {
         </Card>
       )}
 
-      {/* Goals + Recent transactions */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 14 }}>
-        {/* Savings Goals */}
         <Card className="delay-4">
           <SectionHeader title="Savings Goals" />
-          {goals.length === 0 ? <Empty icon="🎯" message="No goals yet — add one in Budgets" /> : (
+          {goals.length === 0 ? <Empty icon={<Target size={36} />} message="No goals yet — add one in Budgets" /> : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {goals.map(g => {
                 const pct = g.target > 0 ? Math.min((g.saved / g.target) * 100, 100) : 0;
@@ -157,10 +149,9 @@ export default function Overview() {
           )}
         </Card>
 
-        {/* Recent Transactions */}
         <Card className="delay-5">
           <SectionHeader title="Recent Transactions" />
-          {recent.length === 0 ? <Empty icon="💳" message="No transactions yet" /> : (
+          {recent.length === 0 ? <Empty icon={<CreditCard size={36} />} message="No transactions yet" /> : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               {recent.map(tx => (
                 <div key={tx.id} style={{

@@ -1,3 +1,4 @@
+import { BarChart2, PieChart, Target, CreditCard } from 'lucide-react';
 // Card
 export function Card({ children, style = {}, className = '' }) {
   return (
@@ -92,10 +93,10 @@ export function ProgressBar({ value, max, color }) {
 }
 
 // Empty state
-export function Empty({ message = 'No data yet', icon = '📭' }) {
+export function Empty({ message = 'No data yet', icon }) {
   return (
     <div style={{ textAlign: 'center', padding: '48px 24px', color: 'var(--text2)' }}>
-      <div style={{ fontSize: 36, marginBottom: 12 }}>{icon}</div>
+      <div style={{ marginBottom: 12, display: 'flex', justifyContent: 'center', opacity: 0.4 }}>{icon}</div>
       <div style={{ fontSize: 14 }}>{message}</div>
     </div>
   );
